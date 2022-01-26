@@ -1,10 +1,9 @@
-import classes from './MainNavigation.module.css';
+import styles from '../../styles/MainNavigation.module.css'
 
 function MainNavigation() {
-
   return (
-    <header className={classes.header}>
-      <div className={classes.logo}>React Meetups</div>
+    <header className={styles.header}>
+      <div className={styles.logo}>React Meetups</div>
       <nav>
         <ul>
           <li>
@@ -16,7 +15,7 @@ function MainNavigation() {
         </ul>
       </nav>
     </header>
-  );
+  )
 }
 
-export default MainNavigation;
+export default MainNavigation

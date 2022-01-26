@@ -1,6 +1,7 @@
 import MeetupItem from './MeetupItem'
 import styles from '../../styles/MeetupList.module.css'
 
+// meetups is a props
 function MeetupList(props) {
   return (
     <ul className={styles.list}>

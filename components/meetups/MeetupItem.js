@@ -1,7 +1,17 @@
+import { useRouter } from 'next/router'
+
 import Card from '../ui/Card'
 import styles from '../../styles/MeetupItem.module.css'
 
 function MeetupItem(props) {
+  // Use programmatic navigation
+  const router = useRouter()
+
+  function handleDetailShow() {
+    // Get id from meetupList through props and greate route
+    router.push('/' + props.id)
+  }
+
   return (
     <li className={styles.item}>
       <Card>
@@ -13,7 +23,7 @@ function MeetupItem(props) {
           <address>{props.address}</address>
         </div>
         <div className={styles.actions}>
-          <button>Show Details</button>
+          <button onClick={handleDetailShow}>Show Details</button>
         </div>
       </Card>
     </li>

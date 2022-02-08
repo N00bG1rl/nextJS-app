@@ -1,5 +1,8 @@
 .item {
-  margin: 1rem 0;
+  margin: 1rem;
+  width: 30%;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .image {
@@ -13,7 +16,6 @@
 .image img {
   width: 100%;
   object-fit: contain;
-  height: 100%;
 }
 
 .content {

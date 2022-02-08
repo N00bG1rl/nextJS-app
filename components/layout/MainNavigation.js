@@ -5,7 +5,7 @@ import styles from '../../styles/MainNavigation.module.css'
 function MainNavigation() {
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>DnD Meetups</div>
+      <div className={styles.logo}>Dungeons & Dragons</div>
       <nav>
         <ul>
           <li>

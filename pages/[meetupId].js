@@ -39,7 +39,7 @@ export async function getStaticPaths() {
 
   return {
     // If not in the paths, return 404 page
-    fallback: false,
+    fallback: 'blocking',
     // map into object
     paths: dndMeetups.map(meetup => ({
       params: {

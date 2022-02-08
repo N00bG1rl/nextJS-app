@@ -31,8 +31,25 @@ const DUMMY_DATA = [
   },
 ]
 
-function Home() {
-  return <MeetupList meetups={DUMMY_DATA} />
+function Home(props) {
+  // const [loadedMeetup, setLoadedMeetup] = useState([])
+
+  // useEffect(() => {
+  //   setLoadedMeetup(DUMMY_DATA)
+  // }, [])
+
+  return <MeetupList meetups={props.loadedMeetups} />
+}
+
+// Pre fetch data, replaces useState and useEffect
+export async function getStaticProps() {
+  // Allways return an object
+  return {
+    props: {
+      loadedMeetups: DUMMY_DATA,
+    },
+    revalidate: 1,
+  }
 }
 
 export default Home

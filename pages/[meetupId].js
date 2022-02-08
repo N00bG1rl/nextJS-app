@@ -12,4 +12,43 @@ function MeetupDetails() {
   )
 }
 
+// Describe all the segmatic values
+export async function getStaticPaths() {
+  return {
+    // If not in the paths, return 404 page
+    fallback: false,
+    paths: [
+      {
+        params: {
+          meetupId: 'm1',
+        }
+      },
+      {
+        params: {
+          meetupId: 'm2'
+        }
+      }
+    ]
+  }
+}
+
+// Fetch data for a single meetup
+export async function getStaticProps(context) {
+  // Get item id/url, for indentifying item to fetch
+  const meetupId = context.params.meetupId
+  console.log(meetupId)
+
+  return {
+    props: {
+      meetupData: {
+        id: meetupId,
+        title='DungeonsDragons: The Frozen Tomb',
+        image='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2Fdd%2F49%2Fa1%2Fdd49a1d80e251795fd6e8c6fdaf57144.jpg&f=1&nofb=1',
+        address='Online Event',
+        description='This adventure takes place in a cold, snowy mountain pass. The reason the characters are making this trip is not specified; this adventure can take place while journeying from on location to another during or between adventures. While making the difficult journey, the characters are caught in a terrible storm and must take shelter in a cave in the mountainside, only to discover the cave hides even greater dangers than those posed by the weather.'
+      },
+    },
+  }
+}
+
 export default MeetupDetails

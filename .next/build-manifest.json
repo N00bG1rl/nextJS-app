@@ -1,0 +1,49 @@
+{
+  "polyfillFiles": [
+    "static/chunks/polyfills-5cd94c89d3acac5f.js"
+  ],
+  "devFiles": [],
+  "ampDevFiles": [],
+  "lowPriorityFiles": [
+    "static/q73Kf7LVGqmJLCgU07fJ7/_buildManifest.js",
+    "static/q73Kf7LVGqmJLCgU07fJ7/_ssgManifest.js",
+    "static/q73Kf7LVGqmJLCgU07fJ7/_middlewareManifest.js"
+  ],
+  "pages": {
+    "/": [
+      "static/chunks/webpack-514908bffb652963.js",
+      "static/chunks/framework-9f7c4d28dae9e00d.js",
+      "static/chunks/main-e47bb435dabe4202.js",
+      "static/css/778f010efcfd26ae.css",
+      "static/chunks/pages/index-59cf186bb114fe86.js"
+    ],
+    "/[meetupId]": [
+      "static/chunks/webpack-514908bffb652963.js",
+      "static/chunks/framework-9f7c4d28dae9e00d.js",
+      "static/chunks/main-e47bb435dabe4202.js",
+      "static/css/0b6749795b054275.css",
+      "static/chunks/pages/[meetupId]-54ff7a0dd8c212fa.js"
+    ],
+    "/_app": [
+      "static/chunks/webpack-514908bffb652963.js",
+      "static/chunks/framework-9f7c4d28dae9e00d.js",
+      "static/chunks/main-e47bb435dabe4202.js",
+      "static/css/e5143eefb49638f6.css",
+      "static/chunks/pages/_app-9b89a4fc9080998d.js"
+    ],
+    "/_error": [
+      "static/chunks/webpack-514908bffb652963.js",
+      "static/chunks/framework-9f7c4d28dae9e00d.js",
+      "static/chunks/main-e47bb435dabe4202.js",
+      "static/chunks/pages/_error-2280fa386d040b66.js"
+    ],
+    "/new-meetup": [
+      "static/chunks/webpack-514908bffb652963.js",
+      "static/chunks/framework-9f7c4d28dae9e00d.js",
+      "static/chunks/main-e47bb435dabe4202.js",
+      "static/css/9e3439fa112ff0df.css",
+      "static/chunks/pages/new-meetup-60edc55f342adedc.js"
+    ]
+  },
+  "ampFirstPages": []
+}

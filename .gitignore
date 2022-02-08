@@ -5,5 +5,5 @@ node_modules
 # Ignore all text files
 *.txt
 # Ignore all .next files
-.nextnode_modules/
-.next/
+# .nextnode_modules/
+# .next/

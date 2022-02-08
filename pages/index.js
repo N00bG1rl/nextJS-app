@@ -1,4 +1,4 @@
-// It is safe with nextJS, It is seperated in build process into dif component
+// It is safe with nextJS, It is seperated in build process
 import { MongoClient } from 'mongodb'
 
 import MeetupList from '../components/meetups/MeetupList'

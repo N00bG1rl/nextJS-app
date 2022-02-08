@@ -1,34 +1,43 @@
+import { MongoClient, ObjectId } from 'mongodb'
+
 import MeetupDetail from '../components/meetups/MeetupDetail'
 
-function MeetupDetails() {
+// Get meetup data from getStaticProps through props
+function MeetupDetails(props) {
   // Send info throgh props to new component
   return (
     <MeetupDetail
-      title='DungeonsDragons: The Frozen Tomb'
-      image='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2Fdd%2F49%2Fa1%2Fdd49a1d80e251795fd6e8c6fdaf57144.jpg&f=1&nofb=1'
-      address='Online Event'
-      description='This adventure takes place in a cold, snowy mountain pass. The reason the characters are making this trip is not specified; this adventure can take place while journeying from on location to another during or between adventures. While making the difficult journey, the characters are caught in a terrible storm and must take shelter in a cave in the mountainside, only to discover the cave hides even greater dangers than those posed by the weather.'
+      title={props.meetupData.title}
+      image={props.meetupData.image}
+      address={props.meetupData.address}
+      description={props.meetupData.description}
     />
   )
 }
 
 // Describe all the segmatic values
 export async function getStaticPaths() {
+  const client = await MongoClient.connect(
+    'mongodb+srv://dnd:yx2dV6xeh5fZAK4@cluster0.w1pwr.mongodb.net/dndMeetups?retryWrites=true&w=majority'
+  )
+  const db = client.db()
+  const meetupsCollection = db.collection('dndMeetups')
+  // Get all documents in db,
+  // Use tweek-find, first arg is for search (empty object returns all)
+  // Sec arg is for witch field we are want to extract for every doc
+  const dndMeetups = await meetupsCollection.find({}, { _id: 1 }).toArray()
+
+  client.close()
+
   return {
     // If not in the paths, return 404 page
     fallback: false,
-    paths: [
-      {
-        params: {
-          meetupId: 'm1',
-        }
+    // map into object
+    paths: dndMeetups.map(meetup => ({
+      params: {
+        meetupId: meetup._id.toString(),
       },
-      {
-        params: {
-          meetupId: 'm2'
-        }
-      }
-    ]
+    })),
   }
 }
 
@@ -36,16 +45,27 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   // Get item id/url, for indentifying item to fetch
   const meetupId = context.params.meetupId
-  console.log(meetupId)
+
+  const client = await MongoClient.connect(
+    'mongodb+srv://dnd:yx2dV6xeh5fZAK4@cluster0.w1pwr.mongodb.net/dndMeetups?retryWrites=true&w=majority'
+  )
+  const db = client.db()
+  const meetupsCollection = db.collection('dndMeetups')
+  // Convert string into MongoDB id object
+  const selectedMeetup = await meetupsCollection.findOne({
+    _id: ObjectId(meetupId),
+  })
+
+  client.close()
 
   return {
     props: {
       meetupData: {
-        id: meetupId,
-        title='DungeonsDragons: The Frozen Tomb',
-        image='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2Fdd%2F49%2Fa1%2Fdd49a1d80e251795fd6e8c6fdaf57144.jpg&f=1&nofb=1',
-        address='Online Event',
-        description='This adventure takes place in a cold, snowy mountain pass. The reason the characters are making this trip is not specified; this adventure can take place while journeying from on location to another during or between adventures. While making the difficult journey, the characters are caught in a terrible storm and must take shelter in a cave in the mountainside, only to discover the cave hides even greater dangers than those posed by the weather.'
+        id: selectedMeetup._id.toString(),
+        title: selectedMeetup.title,
+        image: selectedMeetup.image,
+        address: selectedMeetup.address,
+        description: selectedMeetup.description,
       },
     },
   }

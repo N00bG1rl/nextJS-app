@@ -1,3 +1,6 @@
+// It is safe with nextJS, It is seperated in build process into dif component
+import { MongoClient } from 'mongodb'
+
 import MeetupList from '../components/meetups/MeetupList'
 
 const DUMMY_DATA = [
@@ -43,10 +46,29 @@ function Home(props) {
 
 // Pre fetch data, replaces useState and useEffect
 export async function getStaticProps() {
+  // With nextJS we can fetch in server side code as well
+  //fetch()
+
+  const client = await MongoClient.connect(
+    'mongodb+srv://dnd:yx2dV6xeh5fZAK4@cluster0.w1pwr.mongodb.net/dndMeetups?retryWrites=true&w=majority'
+  )
+  const db = client.db()
+  const meetupsCollection = db.collection('dndMeetups')
+  // Get all documents and return as array
+  const dndMeetups = await meetupsCollection.find().toArray()
+
+  client.close()
+
   // Allways return an object
   return {
+    // Because MongoDB id we need to map it and return id as string
     props: {
-      loadedMeetups: DUMMY_DATA,
+      loadedMeetups: dndMeetups.map(meetup => ({
+        title: meetup.title,
+        address: meetup.address,
+        image: meetup.image,
+        id: meetup._id.toString(),
+      })),
     },
     revalidate: 1,
   }

@@ -1,4 +1,8 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router'
+
+import { Fragment } from 'react/cjs/react.production.min'
+
 import NewMeetupForm from '../components/meetups/NewMeetupForm'
 
 function NewMeetupPage() {
@@ -22,7 +26,15 @@ function NewMeetupPage() {
     router.replace('/')
   }
 
-  return <NewMeetupForm onAddMeetup={handleMeetupAdd} />
+  return (
+    <Fragment>
+      <Head>
+        <title>Add a new DnD game event</title>
+        <meta name='description' content='Add your own DnD game event.' />
+      </Head>
+      <NewMeetupForm onAddMeetup={handleMeetupAdd} />
+    </Fragment>
+  )
 }
 
 export default NewMeetupPage

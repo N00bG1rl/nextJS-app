@@ -1,5 +1,8 @@
+import Head from 'next/head'
 // It is safe with nextJS, It is seperated in build process
 import { MongoClient } from 'mongodb'
+
+import { Fragment } from 'react/cjs/react.production.min'
 
 import MeetupList from '../components/meetups/MeetupList'
 
@@ -35,26 +38,25 @@ const DUMMY_DATA = [
 ]
 
 function Home(props) {
-  // const [loadedMeetup, setLoadedMeetup] = useState([])
-
-  // useEffect(() => {
-  //   setLoadedMeetup(DUMMY_DATA)
-  // }, [])
-
-  return <MeetupList meetups={props.loadedMeetups} />
+  return (
+    <Fragment>
+      <Head>
+        <title>DnD Meetups</title>
+        <meta name='description' content='See all upcoming DnD game nights.' />
+      </Head>
+      <MeetupList meetups={props.loadedMeetups} />
+    </Fragment>
+  )
 }
 
 // Pre fetch data, replaces useState and useEffect
 export async function getStaticProps() {
-  // With nextJS we can fetch in server side code as well
-  //fetch()
-
   const client = await MongoClient.connect(
     'mongodb+srv://dnd:yx2dV6xeh5fZAK4@cluster0.w1pwr.mongodb.net/dndMeetups?retryWrites=true&w=majority'
   )
   const db = client.db()
   const meetupsCollection = db.collection('dndMeetups')
-  // Get all documents and return as array
+  // Get all documents from db and return as array
   const dndMeetups = await meetupsCollection.find().toArray()
 
   client.close()

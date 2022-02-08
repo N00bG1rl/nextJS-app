@@ -1,17 +1,25 @@
+import Head from 'next/head'
 import { MongoClient, ObjectId } from 'mongodb'
+
+import { Fragment } from 'react/cjs/react.production.min'
 
 import MeetupDetail from '../components/meetups/MeetupDetail'
 
 // Get meetup data from getStaticProps through props
 function MeetupDetails(props) {
-  // Send info throgh props to new component
   return (
-    <MeetupDetail
-      title={props.meetupData.title}
-      image={props.meetupData.image}
-      address={props.meetupData.address}
-      description={props.meetupData.description}
-    />
+    <Fragment>
+      <Head>
+        <title>{props.meetupData.title}</title>
+        <meta name='description' content={props.meetupData.description} />
+      </Head>
+      <MeetupDetail
+        title={props.meetupData.title}
+        image={props.meetupData.image}
+        address={props.meetupData.address}
+        description={props.meetupData.description}
+      />
+    </Fragment>
   )
 }
 
@@ -22,9 +30,9 @@ export async function getStaticPaths() {
   )
   const db = client.db()
   const meetupsCollection = db.collection('dndMeetups')
-  // Get all documents in db,
+  // Get all documents from db
   // Use tweek-find, first arg is for search (empty object returns all)
-  // Sec arg is for witch field we are want to extract for every doc
+  // Sec arg is for whitch field we want to extract, for every doc
   const dndMeetups = await meetupsCollection.find({}, { _id: 1 }).toArray()
 
   client.close()
